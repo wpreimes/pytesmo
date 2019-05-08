@@ -65,3 +65,16 @@ def netcdf_results_manager(results, save_path):
             var[index:] = results[key][field]
 
         ncfile.close()
+
+if __name__ == '__main__':
+    gpis = [1,2,3,4,5]
+    lat = [39,39,39,39,39]
+    lon = [-113,-112,-111,-110,-109]
+    n_obs = [99,99,99,99,99]
+    s = ['s1','s2','s3','s4','s5']
+    n = [1,2,3,4,5]
+
+    results = {('test1','test2') : dict(lat=lat, lon=lon, gpi=gpis, n_obs=n_obs, s=s, n=n)}
+
+    path = r'C:\Temp\nc_compress\nc_with_strings.nc'
+    netcdf_results_manager(results, save_path=path)

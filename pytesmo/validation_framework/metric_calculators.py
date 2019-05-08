@@ -550,6 +550,9 @@ class IntercomparisonMetrics(BasicMetrics):
                        'ubRMSD': np.float32([np.nan]),
                        'mse_var': np.float32([np.nan])}
 
+        if not calc_tau:
+            self.result_template.pop('tau', None)
+            self.result_template.pop('p_tau', None)
 
         self.result_template = {'gpi': np.int32([-1]),
                                 'lon': np.float32([np.nan]),
@@ -604,7 +607,6 @@ class IntercomparisonMetrics(BasicMetrics):
 
         dataset['n_obs'][0] = n_obs
 
-
         # calculate Pearson correlation
         pearson_R, pearson_p = df_metrics.pearsonr(data)
         pearson_R = pearson_R._asdict()
@@ -640,9 +642,9 @@ class IntercomparisonMetrics(BasicMetrics):
 
         # No extra scaling is performed here.
         # always scale for ubRMSD with mean std
-        #data_scaled = scale(data, method='mean_std')
         # calculate ubRMSD
-        ubRMSD_nT = df_metrics.ubrmsd(data)
+        data_scaled = scale(data, method='mean_std')
+        ubRMSD_nT = df_metrics.ubrmsd(data_scaled)
         ubRMSD_dict = ubRMSD_nT._asdict()
 
         for tds_name in self.tds_names:
@@ -663,8 +665,8 @@ class IntercomparisonMetrics(BasicMetrics):
 
 
             split_tds_name = tds_name.split('_and_')
-            tds_name_key = "{:}_{:}".format(self.ds_names_lut[split_tds_name[0]],
-                                            self.ds_names_lut[split_tds_name[1]])
+            tds_name_key = "{:}_{:}".format(
+                self.ds_names_lut[split_tds_name[0]], self.ds_names_lut[split_tds_name[1]])
 
             dataset['R_between_{:}'.format(tds_name_key)][0] = R
             dataset['p_R_between_{:}'.format(tds_name_key)][0] = p_R
@@ -928,9 +930,9 @@ class TCMetrics(object):
 def get_dataset_names(ref_key, datasets, n=3):
     """
     Get dataset names in correct order as used in the validation framework
-        -) reference dataset = ref
-        -) first other dataset = k1
-        -) second other dataset = k2
+        -) reference dataset
+        -) first other dataset
+        -) second other dataset
     This is important to correctly iterate through the H-SAF metrics and to
     save each metric with the name of the used datasets
 
