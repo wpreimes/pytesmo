@@ -565,7 +565,7 @@ class IntercomparisonMetrics(BasicMetrics):
 
         for tds_name in self.tds_names:
             split_tds_name = tds_name.split('_and_')
-            tds_name_key = "{:}_{:}".format(self.ds_names_lut[
+            tds_name_key = "{:}_and_{:}".format(self.ds_names_lut[
                                                 split_tds_name[0]],
                                             self.ds_names_lut[
                                                 split_tds_name[1]])
@@ -673,7 +673,7 @@ class IntercomparisonMetrics(BasicMetrics):
 
 
             split_tds_name = tds_name.split('_and_')
-            tds_name_key = "{:}_{:}".format(
+            tds_name_key = "{:}_and_{:}".format(
                 self.ds_names_lut[split_tds_name[0]], self.ds_names_lut[split_tds_name[1]])
 
             dataset['R_between_{:}'.format(tds_name_key)][0] = R
