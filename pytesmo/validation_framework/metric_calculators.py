@@ -545,6 +545,7 @@ class IntercomparisonMetrics(BasicMetrics):
                        'p_tau': np.float32([np.nan]),
                        'rmsd': np.float32([np.nan]),
                        'mse': np.float32([np.nan]),
+                       'rss': np.float32([np.nan]),
                        'mse_corr': np.float32([np.nan]),
                        'mse_bias': np.float32([np.nan]),
                        'ubRMSD': np.float32([np.nan]),
@@ -632,6 +633,11 @@ class IntercomparisonMetrics(BasicMetrics):
         mse_bias_dict = mse_bias._asdict()
         mse_var_dict = mse_var._asdict()
 
+        # calculate RSS
+        rss = df_metrics.RSS(data)
+        rss_dict = rss._asdict()
+
+
         # calulcate tau
         if self.calc_tau:
             tau, p_tau = df_metrics.kendalltau(data)
@@ -659,6 +665,8 @@ class IntercomparisonMetrics(BasicMetrics):
             mse_var = mse_var_dict[tds_name]
             rmsd = rmsd_dict[tds_name]
             ubRMSD = ubRMSD_dict[tds_name]
+            rss = rss_dict[tds_name]
+
             if tau_dict and p_tau_dict:
                 tau = tau_dict[tds_name]
                 p_tau = p_tau_dict[tds_name]
@@ -679,6 +687,7 @@ class IntercomparisonMetrics(BasicMetrics):
             dataset['mse_var_between_{:}'.format(tds_name_key)][0] = mse_var
             dataset['rmsd_between_{:}'.format(tds_name_key)][0] = rmsd
             dataset['ubRMSD_between_{:}'.format(tds_name_key)][0] = ubRMSD
+            dataset['rss_between_{:}'.format(tds_name_key)][0] = rss
 
             if self.calc_tau:
                 dataset['tau_between_{:}'.format(tds_name_key)][0] = tau
