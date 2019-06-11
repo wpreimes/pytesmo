@@ -540,15 +540,15 @@ class IntercomparisonMetrics(BasicMetrics):
                        'p_R': np.float32([np.nan]),
                        'rho': np.float32([np.nan]),
                        'p_rho': np.float32([np.nan]),
-                       'bias': np.float32([np.nan]),
+                       'BIAS': np.float32([np.nan]),
                        'tau': np.float32([np.nan]),
                        'p_tau': np.float32([np.nan]),
-                       'rmsd': np.float32([np.nan]),
+                       'RMSD': np.float32([np.nan]),
                        'mse': np.float32([np.nan]),
-                       'rss': np.float32([np.nan]),
+                       'RSS': np.float32([np.nan]),
                        'mse_corr': np.float32([np.nan]),
                        'mse_bias': np.float32([np.nan]),
-                       'ubRMSD': np.float32([np.nan]),
+                       'urmsd': np.float32([np.nan]),
                        'mse_var': np.float32([np.nan])}
 
         if not calc_tau:
@@ -680,14 +680,14 @@ class IntercomparisonMetrics(BasicMetrics):
             dataset['p_R_between_{:}'.format(tds_name_key)][0] = p_R
             dataset['rho_between_{:}'.format(tds_name_key)][0] = rho
             dataset['p_rho_between_{:}'.format(tds_name_key)][0] = p_rho
-            dataset['bias_between_{:}'.format(tds_name_key)][0] = bias
+            dataset['BIAS_between_{:}'.format(tds_name_key)][0] = bias
             dataset['mse_between_{:}'.format(tds_name_key)][0] = mse
             dataset['mse_corr_between_{:}'.format(tds_name_key)][0] = mse_corr
             dataset['mse_bias_between_{:}'.format(tds_name_key)][0] = mse_bias
             dataset['mse_var_between_{:}'.format(tds_name_key)][0] = mse_var
-            dataset['rmsd_between_{:}'.format(tds_name_key)][0] = rmsd
-            dataset['ubRMSD_between_{:}'.format(tds_name_key)][0] = ubRMSD
-            dataset['rss_between_{:}'.format(tds_name_key)][0] = rss
+            dataset['RMSD_between_{:}'.format(tds_name_key)][0] = rmsd
+            dataset['urmsd_between_{:}'.format(tds_name_key)][0] = ubRMSD
+            dataset['RSS_between_{:}'.format(tds_name_key)][0] = rss
 
             if self.calc_tau:
                 dataset['tau_between_{:}'.format(tds_name_key)][0] = tau
