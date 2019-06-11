@@ -51,33 +51,35 @@ def test_IntercompMetrics_calculator():
 
     assert res['n_obs'] == np.array([366])
 
-    assert np.isnan(res['R_between_ref_k1'])
-    assert np.isnan(res['R_between_ref_k2'])
+    assert np.isnan(res['R_between_ref_and_k1'])
+    assert np.isnan(res['R_between_ref_and_k2'])
 
-    assert np.isnan(res['rho_between_ref_k1'])
-    assert np.isnan(res['rho_between_ref_k2'])
+    assert np.isnan(res['rho_between_ref_and_k1'])
+    assert np.isnan(res['rho_between_ref_and_k2'])
 
-    assert np.isnan(res['mse_between_ref_k1'])
-    assert np.isnan(res['mse_between_ref_k2'])
+    assert np.isnan(res['mse_between_ref_and_k1'])
+    assert np.isnan(res['mse_between_ref_and_k2'])
 
-    assert np.isnan(res['mse_corr_between_ref_k1'])
-    assert np.isnan(res['mse_corr_between_ref_k2'])
+    assert np.isnan(res['mse_corr_between_ref_and_k1'])
+    assert np.isnan(res['mse_corr_between_ref_and_k2'])
 
-    assert res['mse_bias_between_ref_k1'], np.array([0.04], dtype='float32')
-    assert res['mse_bias_between_ref_k2'], np.array([0.04], dtype='float32')
+    assert res['mse_bias_between_ref_and_k1'], np.array([0.04], dtype='float32')
+    assert res['mse_bias_between_ref_and_k2'], np.array([0.04], dtype='float32')
 
-    assert res['p_R_between_ref_k1'] == np.array([1.], dtype='float32')
-    assert res['p_R_between_ref_k2'] == np.array([1.], dtype='float32')
+    assert res['p_R_between_ref_and_k1'] == np.array([1.], dtype='float32')
+    assert res['p_R_between_ref_and_k2'] == np.array([1.], dtype='float32')
 
-    assert res['rmsd_between_ref_k1'] == np.array([0.2], dtype='float32')
-    assert res['rmsd_between_ref_k2'] == np.array([0.2], dtype='float32')
+    assert res['RMSD_between_ref_and_k1'] == np.array([0.2], dtype='float32')
+    assert res['RMSD_between_ref_and_k2'] == np.array([0.2], dtype='float32')
 
-    assert res['bias_between_ref_k1'] == np.array([0.2], dtype='float32')
-    assert res['bias_between_ref_k2'] == np.array([-0.2], dtype='float32')
+    assert res['BIAS_between_ref_and_k1'] == np.array([0.2], dtype='float32')
+    assert res['BIAS_between_ref_and_k2'] == np.array([-0.2], dtype='float32')
 
-    np.testing.assert_almost_equal(res['ubRMSD_between_ref_k1'], np.array([0.],dtype='float32'))
-    np.testing.assert_almost_equal(res['ubRMSD_between_ref_k2'], np.array([0.],dtype='float32'))
+    np.testing.assert_almost_equal(res['urmsd_between_ref_and_k1'], np.array([0.],dtype='float32'))
+    np.testing.assert_almost_equal(res['urmsd_between_ref_and_k2'], np.array([0.],dtype='float32'))
 
+    assert 'RSS_between_ref_and_k1' in res.keys()
+    assert 'RSS_between_ref_and_k2' in res.keys()
 
 def test_TC_metrics_calculator():
     # todo: choos example data that returns tc variables.
