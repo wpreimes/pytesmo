@@ -42,7 +42,6 @@ import pytesmo.metrics as metrics
 import warnings
 # warnings.filterwarnings("ignore")
 
-
 def make_some_data():
     """
     Create a data frame with 3 columns and a pre defined bias.
