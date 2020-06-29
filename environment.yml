@@ -27,4 +27,4 @@ dependencies:
     - repurpose
     - pytest
     - more_itertools
-    - git+https://github.com/wpreimes/cadati.git@develop
+    - git+https://github.com/wpreimes/cadati.git@develop  # todo: set cadati
