@@ -65,8 +65,3 @@ def julian2datetimeindex(j, tz=pytz.UTC):
                              for y, m, d, h, mi, s, ms in
                              zip(year, month, day, hour, minute,
                                  second, microsecond)])
-
-
-
-
-
