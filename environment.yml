@@ -40,3 +40,4 @@ dependencies:
     - yapf
     - sphinx_rtd_theme
     - nbsphinx
+    - sphinx==4.0.3
