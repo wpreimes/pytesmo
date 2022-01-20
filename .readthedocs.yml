@@ -3,17 +3,13 @@ version: 2
 sphinx:
   configuration: docs/conf.py
 
-#formats:
-#  - pdf
-
 submodules:
   include: all
 
 conda:
   environment: environment.yml
 
-python:
-  version: "3.8"
-  install:
-    - method: pip
-      path: .
+build:
+  os: ubuntu-20.04
+  tools:
+    python: "3.9"
