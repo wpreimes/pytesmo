@@ -3,8 +3,8 @@ version: 2
 sphinx:
   configuration: docs/conf.py
 
-formats:
-  - pdf
+#formats:
+#  - pdf
 
 submodules:
   include: all
@@ -13,7 +13,7 @@ conda:
   environment: environment.yml
 
 python:
-  version: 3.7
+  version: "3.9"
   install:
     - method: pip
       path: .
