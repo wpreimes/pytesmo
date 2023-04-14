@@ -207,15 +207,17 @@ def calc_climatology(Ser,
     if timespan is not None:
         Ser = Ser.truncate(before=timespan[0], after=timespan[1])
 
-    Ser = moving_average(
+    Ser.name = None
+
+    Ser_mavg = moving_average(
         Ser, window_size=moving_avg_orig, fillna=fillna, min_obs=min_obs_orig)
 
-    Ser = pd.DataFrame(Ser)
+    Ser_mavg = pd.DataFrame(Ser_mavg)
 
-    if type(Ser.index) == pd.DatetimeIndex:
-        year, month, day = (np.asarray(Ser.index.year),
-                            np.asarray(Ser.index.month),
-                            np.asarray(Ser.index.day))
+    if type(Ser_mavg.index) == pd.DatetimeIndex:
+        year, month, day = (np.asarray(Ser_mavg.index.year),
+                            np.asarray(Ser_mavg.index.month),
+                            np.asarray(Ser_mavg.index.day))
     else:
         year, month, day = julian2date(Ser.index.values)[0:3]
 
@@ -226,16 +228,19 @@ def calc_climatology(Ser,
         day,
         unit=output_freq,
         respect_leap_years=respect_leap_years)
-    Ser['unit'] = indices
+    Ser_mavg['unit'] = indices
 
     if median:
-        clim = Ser.groupby('unit').median()
+        clim = Ser_mavg.groupby('unit').median()
         clim.name = 'climatology'
     else:
-        clim = Ser.groupby('unit').mean()
+        clim = Ser_mavg.groupby('unit').mean()
         clim.name = 'climatology'
 
     if std:
+        Ser = pd.DataFrame(Ser)
+        Ser['unit'] = indices
+        # for the std we use the un-smoothed data
         std_ser = Ser.groupby('unit').std()
 
         clim_ser = pd.concat([

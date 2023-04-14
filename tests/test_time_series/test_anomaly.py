@@ -144,11 +144,8 @@ def test_climatology_std():
     # remove a part of the time series
     clim = anomaly.calc_climatology(ts, std=True)
 
-    # use same kwargs as in the function above (default)
-    ser = moving_average(ts, window_size=5, fillna=False, min_obs=1)
-
     # in the clac_climatology function std is computed after first smoothing
-    assert clim.loc[3, 'std'] == ser.groupby(ser.index.dayofyear).std().loc[3]
+    assert clim.loc[3, 'std'] == ts.groupby(ts.index.dayofyear).std().loc[3]
 
     assert clim.index.size == 366
     assert 'std' in clim.columns
