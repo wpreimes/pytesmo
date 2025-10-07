@@ -138,6 +138,9 @@ def _get_metric_template(metr):
         "rho_ci_upper": np.float32([np.nan]),
         "tau_ci_lower": np.float32([np.nan]),
         "tau_ci_upper": np.float32([np.nan]),
+        "norm_std": np.float32([np.nan]),
+        "std": np.float32([np.nan]),
+        "norm_rmsd": np.float32([np.nan]),
     }
 
     lut.update(met_comm)
@@ -1428,6 +1431,9 @@ class PairwiseMetricsMixin:
             "mse_bias",
             "urmsd",
             "mse_var",
+            "std",
+            "norm_std",
+            "norm_rmsd"
         ]
         if self.calc_spearman:
             metrics += ["rho", "p_rho"]
@@ -1489,9 +1495,14 @@ class PairwiseMetricsMixin:
         result["mse_bias" + suffix][0] = mse_bias
         result["mse" + suffix][0] = mse
 
+        result["norm_std" + suffix][0] = np.nanstd(y) / np.nanstd(x)
+
         result["RSS" + suffix][0] = mse * n_obs
         result["RMSD" + suffix][0] = np.sqrt(mse)
         result["urmsd" + suffix][0] = np.sqrt(mse - mse_bias)
+
+        result["norm_rmsd" + suffix][0] = np.sqrt(mse) / np.nanstd(x)
+        result["std" + suffix][0] =  np.nanstd(x)
 
         R, p_R = _pearsonr_from_moments(varx, vary, cov, n_obs)
         result["R" + suffix][0] = R
